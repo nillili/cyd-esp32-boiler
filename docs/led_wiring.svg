@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="1180" viewBox="0 0 860 1180" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif">
+  <rect width="860" height="1180" fill="#ffffff"/>
+
+  <!-- ===== 제목 ===== -->
+  <text x="430" y="40" font-size="26" font-weight="bold" text-anchor="middle" fill="#222">CYD ESP32 — 출력(LED) 빼는 방법</text>
+
+  <!-- ===== 그림 1 : 보드 뒷면 커넥터 ===== -->
+  <text x="40" y="85" font-size="18" font-weight="bold" fill="#222">그림 1. 보드 뒷면 — 흰색 4핀 커넥터 두 개 중 CN1 을 쓴다</text>
+
+  <!-- 보드 -->
+  <rect x="60" y="105" width="540" height="330" rx="10" fill="#1f5f3f" stroke="#0d3d27" stroke-width="3"/>
+  <text x="330" y="130" font-size="14" fill="#c8e6c9" text-anchor="middle">보드 뒷면 (화면이 바닥을 보게 뒤집은 상태)</text>
+
+  <!-- ESP32 모듈 -->
+  <rect x="90" y="150" width="130" height="110" rx="4" fill="#9e9e9e" stroke="#555" stroke-width="2"/>
+  <text x="155" y="210" font-size="13" fill="#222" text-anchor="middle">ESP32</text>
+  <text x="155" y="228" font-size="13" fill="#222" text-anchor="middle">모듈</text>
+
+  <!-- USB -->
+  <rect x="290" y="405" width="80" height="26" rx="3" fill="#cfd8dc" stroke="#555" stroke-width="2"/>
+  <text x="330" y="423" font-size="12" fill="#222" text-anchor="middle">USB</text>
+
+  <!-- P3 커넥터 (쓰지 않음) -->
+  <rect x="250" y="150" width="120" height="34" rx="3" fill="#f5f5f5" stroke="#555" stroke-width="2"/>
+  <g font-size="11" fill="#222" text-anchor="middle">
+    <text x="265" y="172">GND</text><text x="295" y="172">IO35</text><text x="325" y="172">IO22</text><text x="355" y="172">IO21</text>
+  </g>
+  <text x="310" y="200" font-size="14" font-weight="bold" fill="#ffcdd2" text-anchor="middle">P3  X 쓰지 않음</text>
+  <text x="310" y="218" font-size="12" fill="#ffcdd2" text-anchor="middle">(IO35 입력전용 · IO21 백라이트)</text>
+
+  <!-- CN1 커넥터 (사용) -->
+  <rect x="90" y="300" width="120" height="34" rx="3" fill="#fff9c4" stroke="#f57f17" stroke-width="4"/>
+  <g font-size="11" fill="#222" text-anchor="middle" font-weight="bold">
+    <text x="105" y="322">GND</text><text x="135" y="322">IO22</text><text x="165" y="322">IO27</text><text x="195" y="322">3.3V</text>
+  </g>
+  <text x="150" y="360" font-size="16" font-weight="bold" fill="#ffeb3b" text-anchor="middle">CN1  O 여기 사용</text>
+  <text x="160" y="380" font-size="12" fill="#fff59d" text-anchor="middle">기판에 GND · IO22 · IO27 · 3.3V 인쇄</text>
+
+  <!-- 설명 박스 -->
+  <rect x="620" y="105" width="210" height="330" rx="8" fill="#fafafa" stroke="#bbb"/>
+  <g font-size="13" fill="#333">
+    <text x="635" y="135" font-weight="bold">찾는 법</text>
+    <text x="635" y="160">① 보드를 뒤집는다.</text>
+    <text x="635" y="185">② 흰색 4핀 커넥터가</text>
+    <text x="635" y="203">   두 개 보인다.</text>
+    <text x="635" y="228">③ 옆에 인쇄된 글자가</text>
+    <text x="635" y="246">   IO27 / 3.3V 이면 CN1.</text>
+    <text x="635" y="271">④ IO35 / IO21 이면 P3.</text>
+    <text x="635" y="289">   → 이건 쓰지 않는다.</text>
+    <text x="635" y="325" font-weight="bold" fill="#c62828">위치는 보드마다 조금</text>
+    <text x="635" y="343" font-weight="bold" fill="#c62828">다르다. 글자로 찾을 것.</text>
+    <text x="635" y="378">커넥터 규격</text>
+    <text x="635" y="396">JST 1.25 mm 4핀</text>
+  </g>
+
+  <!-- ===== 그림 2 : 배선 ===== -->
+  <text x="40" y="490" font-size="18" font-weight="bold" fill="#222">그림 2. 선 연결 — 선 두 가닥만 쓴다 (IO27 · GND)</text>
+
+  <!-- CN1 확대 -->
+  <rect x="60" y="520" width="200" height="140" rx="6" fill="#fff9c4" stroke="#f57f17" stroke-width="3"/>
+  <text x="75" y="545" font-size="15" font-weight="bold" fill="#333">CN1 (확대)</text>
+  <!-- 4 pins -->
+  <g stroke="#555" stroke-width="2">
+    <rect x="80"  y="565" width="30" height="40" fill="#e0e0e0"/>
+    <rect x="120" y="565" width="30" height="40" fill="#e0e0e0"/>
+    <rect x="160" y="565" width="30" height="40" fill="#e0e0e0"/>
+    <rect x="200" y="565" width="30" height="40" fill="#e0e0e0"/>
+  </g>
+  <g font-size="12" fill="#222" text-anchor="middle" font-weight="bold">
+    <text x="95"  y="630">GND</text>
+    <text x="135" y="630">IO22</text>
+    <text x="175" y="630">IO27</text>
+    <text x="215" y="630">3.3V</text>
+  </g>
+  <text x="135" y="650" font-size="11" fill="#999" text-anchor="middle">안 씀</text>
+  <text x="215" y="650" font-size="11" fill="#999" text-anchor="middle">안 씀</text>
+
+  <!-- IO27 wire (red) -->
+  <path d="M175 565 L175 500 L420 500 L420 560" fill="none" stroke="#e53935" stroke-width="5" stroke-linejoin="round"/>
+  <!-- 저항 -->
+  <rect x="400" y="560" width="40" height="70" rx="4" fill="#f5deb3" stroke="#8d6e63" stroke-width="2"/>
+  <g stroke-width="5">
+    <line x1="400" y1="575" x2="440" y2="575" stroke="#e53935"/>
+    <line x1="400" y1="590" x2="440" y2="590" stroke="#e53935"/>
+    <line x1="400" y1="605" x2="440" y2="605" stroke="#8d6e63"/>
+    <line x1="400" y1="618" x2="440" y2="618" stroke="#ffd54f"/>
+  </g>
+  <text x="470" y="590" font-size="14" fill="#333">저항 220 Ω</text>
+  <text x="470" y="608" font-size="12" fill="#666">100~1kΩ 아무거나 OK</text>
+  <line x1="420" y1="630" x2="420" y2="700" stroke="#e53935" stroke-width="5"/>
+
+  <!-- LED -->
+  <path d="M390 700 L450 700 L450 740 Q450 770 420 770 Q390 770 390 740 Z" fill="#ef5350" stroke="#b71c1c" stroke-width="2" transform="rotate(180 420 735)"/>
+  <!-- 평평한 면 표시 -->
+  <line x1="450" y1="700" x2="450" y2="770" stroke="#222" stroke-width="4"/>
+  <text x="465" y="740" font-size="12" fill="#333">← 평평한 면 = (−)</text>
+  <!-- legs -->
+  <line x1="405" y1="770" x2="405" y2="850" stroke="#9e9e9e" stroke-width="4"/>   <!-- 긴 다리 -->
+  <line x1="435" y1="770" x2="435" y2="830" stroke="#9e9e9e" stroke-width="4"/>   <!-- 짧은 다리 -->
+  <text x="330" y="805" font-size="13" fill="#e53935" font-weight="bold">긴 다리 (+)</text>
+  <text x="330" y="822" font-size="12" fill="#e53935">← IO27 쪽</text>
+  <text x="450" y="805" font-size="13" fill="#1e88e5" font-weight="bold">짧은 다리 (−)</text>
+  <text x="450" y="822" font-size="12" fill="#1e88e5">→ GND 쪽</text>
+  <!-- anode connection: red wire actually enters at long leg -->
+  <path d="M420 700 L405 700" fill="none" stroke="#e53935" stroke-width="5"/>
+  <!-- GND wire (black) from short leg -->
+  <path d="M435 830 L435 880 L70 880 L70 555 L95 555 L95 565" fill="none" stroke="#212121" stroke-width="5" stroke-linejoin="round"/>
+
+  <!-- 범례 -->
+  <rect x="620" y="520" width="210" height="150" rx="8" fill="#fafafa" stroke="#bbb"/>
+  <g font-size="13" fill="#333">
+    <text x="635" y="548" font-weight="bold">연결 요약</text>
+    <line x1="635" y1="570" x2="665" y2="570" stroke="#e53935" stroke-width="5"/>
+    <text x="675" y="575">IO27 → 저항 → LED (+)</text>
+    <line x1="635" y1="600" x2="665" y2="600" stroke="#212121" stroke-width="5"/>
+    <text x="675" y="605">LED (−) → GND</text>
+    <text x="635" y="640" fill="#c62828">IO22 · 3.3V 두 핀은</text>
+    <text x="635" y="658" fill="#c62828">아무것도 꽂지 않는다.</text>
+  </g>
+
+  <!-- ===== 그림 3 : 동작 확인 ===== -->
+  <text x="40" y="940" font-size="18" font-weight="bold" fill="#222">그림 3. 동작 — 화면 버튼을 누르면 IO27 에 3.3V 가 나온다</text>
+
+  <!-- OFF 상태 -->
+  <rect x="60" y="965" width="220" height="150" rx="8" fill="#eceff1" stroke="#90a4ae"/>
+  <rect x="85" y="985" width="170" height="70" rx="8" fill="#616161"/>
+  <text x="170" y="1027" font-size="16" fill="#fff" text-anchor="middle" font-weight="bold">LED OFF</text>
+  <text x="170" y="1080" font-size="13" fill="#333" text-anchor="middle">IO27 = 0 V</text>
+  <text x="170" y="1100" font-size="13" fill="#333" text-anchor="middle">LED 꺼짐</text>
+
+  <!-- 화살표 -->
+  <path d="M300 1040 L380 1040" stroke="#333" stroke-width="3" marker-end="url(#arr)"/>
+  <text x="340" y="1030" font-size="12" fill="#333" text-anchor="middle">터치</text>
+  <defs><marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#333"/></marker></defs>
+
+  <!-- ON 상태 -->
+  <rect x="400" y="965" width="220" height="150" rx="8" fill="#eceff1" stroke="#90a4ae"/>
+  <rect x="425" y="985" width="170" height="70" rx="8" fill="#43a047"/>
+  <text x="510" y="1027" font-size="16" fill="#000" text-anchor="middle" font-weight="bold">LED ON</text>
+  <text x="510" y="1080" font-size="13" fill="#333" text-anchor="middle">IO27 = 3.3 V</text>
+  <text x="510" y="1100" font-size="13" fill="#333" text-anchor="middle">LED 켜짐</text>
+
+  <!-- 멀티미터 안내 -->
+  <rect x="640" y="965" width="190" height="150" rx="8" fill="#fff8e1" stroke="#ffb300"/>
+  <g font-size="12" fill="#333">
+    <text x="655" y="990" font-weight="bold">멀티미터가 있으면</text>
+    <text x="655" y="1012">빨간 봉 → IO27</text>
+    <text x="655" y="1030">검은 봉 → GND</text>
+    <text x="655" y="1055">버튼 ON 일 때 3.3 V,</text>
+    <text x="655" y="1073">OFF 일 때 0 V 이면</text>
+    <text x="655" y="1091">보드는 정상. LED 쪽 문제.</text>
+  </g>
+
+  <text x="430" y="1160" font-size="12" fill="#888" text-anchor="middle">CYD = ESP32-2432S028R · 확장 IO 커넥터 CN1 (GND · IO22 · IO27 · 3.3V) · P3 (GND · IO35 · IO22 · IO21)</text>
+</svg>
