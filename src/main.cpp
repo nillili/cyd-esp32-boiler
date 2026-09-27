@@ -7,6 +7,7 @@
 //  4 오른쪽아래: 수동모드 - 누르는 동안 릴레이 On (IO27) + 누른 초(0.1) 표시, 떼면 5초 유지
 //                Time/Sensor 모드 - "Disable" 표시
 //  Time 모드: sleep 구간엔 1번 칸 오른쪽아래, running 구간엔 2번 칸 왼쪽아래에 남은 초 작게 표시
+//  비상버튼 : 오른쪽 가장자리, 기어와 표시등 사이. 누르면 Manual 모드로 바뀐다
 //
 // [설정 화면]  기어 터치로 진입, 같은 자리(오른쪽 위) 뒤로가기로 복귀
 //  1 Time mode   : sleep time 쉬고 → running time 작동, 반복
@@ -39,6 +40,8 @@ TFT_eSPI tft = TFT_eSPI();
 #define C_LABEL  0x4208          // 라벨 회색
 #define C_DIS    0x9CD3          // Disable 글자색
 #define C_ON     0x07E0          // 표시등 On (초록)
+#define C_EMG    0xF800          // 비상버튼 (빨강)
+#define C_EMG_B  0x8800          // 비상버튼 테두리 (진한 빨강)
 
 // ---- 모드 ----
 enum Mode { MODE_TIME = 1, MODE_SENSOR = 2, MODE_MANUAL = 3 };
@@ -73,6 +76,7 @@ const Box BX_LIGHT = {  6, 124, 135, 88 };
 const Box BX_RELAY = {147, 124, 135, 88 };
 const Box BX_GEAR  = {284,   0,  36, 44 };   // 터치 영역 (아이콘은 그 안에)
 const int  LAMP_X = 302, LAMP_Y = 200, LAMP_R = 12;   // 릴레이 On 표시등
+const Box BX_EMG   = {286,  92,  32, 48 };   // 비상버튼 (기어와 표시등 사이)
 // 설정
 const Box BX_MODE1 = { 10,  44, 250, 32 };
 const Box BX_MODE2 = { 10,  80, 250, 32 };
@@ -115,6 +119,11 @@ void drawGear() {
     tft.fillCircle(cx + (int)(13 * cos(a)), cy + (int)(13 * sin(a)), 3, C_LABEL);
   }
   tft.fillCircle(cx, cy, 5, C_BG);
+}
+
+void drawEmergency() {
+  tft.fillRoundRect(BX_EMG.x, BX_EMG.y, BX_EMG.w, BX_EMG.h, 4, C_EMG);
+  tft.drawRoundRect(BX_EMG.x, BX_EMG.y, BX_EMG.w, BX_EMG.h, 4, C_EMG_B);
 }
 
 void drawLamp() {
@@ -171,6 +180,7 @@ void drawMain() {
   tft.setTextDatum(TL_DATUM);
   tft.drawString("Light sensor", BX_LIGHT.x + 8, BX_LIGHT.y + BX_LIGHT.h + 4, 2);
   drawGear();
+  drawEmergency();
   drawLamp();
   drawBox1(); drawBox2(); drawBox3(); drawBox4();
   timeShownSec = -1;            // 카운트다운 다시 그리게
@@ -325,6 +335,13 @@ void handleMainTouch(bool touched, bool pressed, int x, int y) {
     if (inBox(BX_GEAR, x, y)) {
       screen = SCREEN_SETTINGS;
       drawSettings();
+      return;
+    }
+    if (inBox(BX_EMG, x, y)) {          // 비상버튼 → Manual 모드
+      setMode(MODE_MANUAL);
+      drawCountdown(-1);                // Time 모드 남은 초 흔적 지움
+      drawBox4();
+      Serial.println("emergency -> manual");
       return;
     }
     if (inBox(BX_SLEEP, x, y)) {
